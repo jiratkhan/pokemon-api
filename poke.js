@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
-
+//const port = 3000
 app.use(express.json())
 
 class Pokemon{
@@ -9,10 +8,11 @@ class Pokemon{
         this.name = name
         this.type = type
         this.id = null
+        this.type2 = null
     }
 }
 
-app.get('/', (req,res) => res.send(`Hello World!`))
+app.get('/', (req,res) => res.send({message: 'Hello world'}))
 
 //pokemons -> list all Pokemons http//localhost:3000/Pokemons
 
@@ -61,5 +61,5 @@ app.post('/Pokemons', (req,res) => {
     res.sendStatus(201)
 })
 
-app.listen(port, () => console.log(`Pokemon API lidten on port ${port}`))
+module.exports = app
 
