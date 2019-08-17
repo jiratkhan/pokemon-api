@@ -34,7 +34,26 @@ function createPokemon(name,type){
 }
 app.get('/Pokemons', (req,res) => res.send(pokemons))
 
+app.get('/Pokemons/:id', (req,res) => {
+    let id = req.params.id
+    let p = pokemons[id-1]
+    res.send(p)
+})
+
+app.put('/Pokemons/:id', (req,res) => {
+    let id = req.params.id
+    let p = pokemons[id-1]
+    p.type2 = req.body.type2
+    pokemons.push(p)
+    res.sendStatus(201)
+
+})
 app.post('/Pokemons', (req,res) => {
+    if(req.body.name == null || req.body.name == '' || req.body.name == undefined || req.body.type == null || req.body.type == ''|| req.body.type == undefined){
+        res.status(400).send('Insufficient parameters: name and type are required')
+        return
+    }
+
     let p = new Pokemon(req.body.name, req.body.type)
     p.id = generatenewId(pokemons.length)
 
